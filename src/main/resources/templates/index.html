@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 운세 슬롯머신</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#FF6B6B',secondary:'#4ECDC4'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Gaegu:wght@400;700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .slot {
+            overflow: hidden;
+            position: relative;
+        }
+        .slot-item {
+            transition: transform 0.1s ease;
+        }
+        .spinning .slot-item {
+            animation: spin 0.1s infinite linear;
+        }
+        @keyframes spin {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        .result-card {
+            background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<div class="relative min-h-screen w-full mx-auto bg-white pb-16">
+    <!-- Nav Bar -->
+    <nav class="fixed top-0 w-full z-50 bg-primary text-white shadow-md">
+        <div class="flex items-center justify-between px-4 py-3">
+            <div class="font-['Gaegu'] text-2xl font-bold text-white">LuckyMoji</div>
+            <div class="w-8 h-8 flex items-center justify-center cursor-pointer">
+                <i class="ri-share-line ri-lg"></i>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="pt-16 pb-20 px-4">
+        <!-- Header -->
+        <div class="mt-6 mb-8 text-center">
+            <h1 class="text-2xl font-bold mb-2">오늘의 운세 머신 🎰</h1>
+            <p class="text-gray-600 text-sm">버튼을 눌러 오늘의 운세를 확인해보세요!</p>
+            <p class="text-gray-500 text-xs mt-1">2025년 5월 2일 금요일</p>
+        </div>
+        <!-- Slot Machine -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex justify-center gap-4 mb-8">
+                <!-- Slot 1 -->
+                <div class="slot w-20 h-20 bg-gray-100 rounded-lg border-2 border-primary flex items-center justify-center text-4xl">
+                    <div class="slot-item">😊</div>
+                </div>
+                <!-- Slot 2 -->
+                <div class="slot w-20 h-20 bg-gray-100 rounded-lg border-2 border-primary flex items-center justify-center text-4xl">
+                    <div class="slot-item">🌟</div>
+                </div>
+                <!-- Slot 3 -->
+                <div class="slot w-20 h-20 bg-gray-100 rounded-lg border-2 border-primary flex items-center justify-center text-4xl">
+                    <div class="slot-item">🍀</div>
+                </div>
+            </div>
+            <button id="spinButton"
+                    class="w-full py-4 bg-primary text-white font-bold rounded-button shadow-md hover:bg-opacity-90 transition-all flex items-center justify-center cursor-pointer">
+                <i class="ri-magic-line ri-lg mr-2"></i>
+                운세 뽑기
+            </button>
+        </div>
+        <!-- Result Area (Hidden initially) -->
+        <div id="resultArea" class="hidden mb-8">
+            <div class="result-card rounded-xl p-6 text-white shadow-lg">
+                <h2 class="text-xl font-bold mb-4 text-center">오늘의 운세</h2>
+                <div id="emojiResult" class="flex justify-center gap-3 text-3xl mb-4">
+                    <!-- Emojis will be placed here -->
+                </div>
+                <p id="fortuneText" class="text-center font-medium leading-relaxed">
+                    <!-- Fortune text will be placed here -->
+                </p>
+            </div>
+        </div>
+        <!-- Previous Results -->
+        <div class="mb-8">
+            <h2 class="text-lg font-bold mb-4">이전 결과</h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg p-4 shadow border border-gray-100">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="text-xl">🍕 ⏰ ☁️</div>
+                        <span class="text-xs text-gray-500">5월 1일</span>
+                    </div>
+                    <p class="text-sm text-gray-700">먹을 걸 너무 고민하지 말고, 시간을 아끼세요. 오늘은 무난한 하루가 될 거예요.</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow border border-gray-100">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="text-xl">✨ ✈️ ❤️</div>
+                        <span class="text-xs text-gray-500">4월 30일</span>
+                    </div>
+                    <p class="text-sm text-gray-700">특별한 인연이나 소식이 예상되는 날! 새로운 것에 열어두세요.</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 shadow border border-gray-100">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="text-xl">🌙 🎵 🏃</div>
+                        <span class="text-xs text-gray-500">4월 29일</span>
+                    </div>
+                    <p class="text-sm text-gray-700">밤에 음악을 들으며 가벼운 운동을 하면 영감이 떠오를 거예요.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Share Section -->
+        <div id="shareSection" class="hidden bg-white rounded-xl p-6 shadow-lg mb-8">
+            <h2 class="text-lg font-bold mb-4 text-center">결과 공유하기</h2>
+            <div class="grid grid-cols-4 gap-4">
+                <div class="flex flex-col items-center cursor-pointer">
+                    <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-1">
+                        <i class="ri-kakao-talk-fill ri-lg text-yellow-500"></i>
+                    </div>
+                    <span class="text-xs">카카오톡</span>
+                </div>
+                <div class="flex flex-col items-center cursor-pointer">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-1">
+                        <i class="ri-instagram-line ri-lg text-purple-600"></i>
+                    </div>
+                    <span class="text-xs">인스타그램</span>
+                </div>
+                <div class="flex flex-col items-center cursor-pointer">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-1">
+                        <i class="ri-twitter-x-line ri-lg text-black"></i>
+                    </div>
+                    <span class="text-xs">X</span>
+                </div>
+                <div class="flex flex-col items-center cursor-pointer" id="downloadBtn">
+                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-1">
+                        <i class="ri-download-line ri-lg text-gray-600"></i>
+                    </div>
+                    <span class="text-xs">저장하기</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Tab Bar -->
+    <div class="fixed bottom-0 w-full bg-white border-t border-gray-200 shadow-lg">
+        <div class="grid grid-cols-3 h-16">
+            <div class="flex flex-col items-center justify-center cursor-pointer text-gray-500">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-file-text-line ri-lg"></i>
+                </div>
+                <span class="text-xs mt-1">이용약관</span>
+            </div>
+            <div class="flex flex-col items-center justify-center cursor-pointer text-gray-500">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-shield-user-line ri-lg"></i>
+                </div>
+                <span class="text-xs mt-1">개인정보처리방침</span>
+            </div>
+            <div class="flex flex-col items-center justify-center cursor-pointer text-gray-500">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-customer-service-line ri-lg"></i>
+                </div>
+                <span class="text-xs mt-1">사용문의</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slots = document.querySelectorAll('.slot');
+        const slotItems = document.querySelectorAll('.slot-item');
+        const spinButton = document.getElementById('spinButton');
+        const resultArea = document.getElementById('resultArea');
+        const emojiResult = document.getElementById('emojiResult');
+        const fortuneText = document.getElementById('fortuneText');
+        const shareSection = document.getElementById('shareSection');
+        const downloadBtn = document.getElementById('downloadBtn');
+        // All possible emojis
+        const emojis = [
+            '😊', '😎', '🥰', '😇', '🤩', '🌟', '✨', '💫', '⭐', '🔥',
+            '❤️', '💖', '💯', '🍀', '🌈', '🌞', '🌙', '☁️', '🌧️', '⛅',
+            '🍕', '🍔', '🍦', '🍰', '🍓', '🥑', '🥤', '🧃', '🎵', '🎮',
+            '📱', '💻', '⏰', '💰', '💸', '🎁', '🎉', '🎊', '🏆', '🥇',
+            '🚗', '✈️', '🚀', '🏃', '🧘', '🛌', '👨‍💻', '👩‍💻', '📚', '✏️'
+        ];
+        // Fortune messages based on emoji combinations
+        const fortunes = [
+            {
+                emojis: ['🍕', '⏰', '☁️'],
+                message: '먹을 걸 너무 고민하지 말고, 시간을 아끼세요. 오늘은 무난한 하루가 될 거예요.'
+            },
+            {
+                emojis: ['✨', '✈️', '❤️'],
+                message: '특별한 인연이나 소식이 예상되는 날! 새로운 것에 열어두세요.'
+            },
+            {
+                emojis: ['🌙', '🎵', '🏃'],
+                message: '밤에 음악을 들으며 가벼운 운동을 하면 영감이 떠오를 거예요.'
+            },
+            {
+                emojis: ['📚', '💻', '🍀'],
+                message: '학습이나 업무에 집중하면 행운이 따를 거예요. 새로운 지식을 얻을 좋은 날입니다.'
+            },
+            {
+                emojis: ['🌞', '🌈', '🎉'],
+                message: '긍정적인 에너지로 가득한 하루! 기쁜 소식이 기다리고 있어요.'
+            }
+        ];
+        // Function to get random emoji
+        function getRandomEmoji() {
+            return emojis[Math.floor(Math.random() * emojis.length)];
+        }
+        // Function to get random fortune message
+        function getRandomFortune(emojiSet) {
+            // Try to find matching fortune first
+            for (const fortune of fortunes) {
+                if (fortune.emojis.every((emoji, index) => emoji === emojiSet[index])) {
+                    return fortune.message;
+                }
+            }
+            // If no match, generate a random message
+            const messages = [
+                `${emojiSet[0]}의 에너지와 ${emojiSet[1]}의 행운이 만나 ${emojiSet[2]}의 기회를 만들어낼 거예요.`,
+                `오늘은 ${emojiSet[0]}처럼 밝게 시작해서 ${emojiSet[1]}의 노력으로 ${emojiSet[2]}의 성과를 얻을 수 있어요.`,
+                `${emojiSet[0]}의 직관을 믿고 ${emojiSet[1]}의 도전을 두려워하지 마세요. ${emojiSet[2]}의 행운이 함께할 거예요.`,
+                `${emojiSet[0]}와 ${emojiSet[1]}에 집중하면 ${emojiSet[2]}의 기쁨을 느낄 수 있는 하루가 될 거예요.`,
+                `${emojiSet[0]}의 순간을 소중히 여기고 ${emojiSet[1]}의 기회를 놓치지 마세요. ${emojiSet[2]}의 행운이 따를 거예요.`
+            ];
+            return messages[Math.floor(Math.random() * messages.length)];
+        }
+        // Spin animation
+        function spinSlots() {
+            // Disable button during spin
+            spinButton.disabled = true;
+            spinButton.classList.add('opacity-50');
+            spinButton.textContent = '돌아가는 중...';
+            // Hide previous results
+            resultArea.classList.add('hidden');
+            shareSection.classList.add('hidden');
+            // Add spinning class to all slots
+            slots.forEach(slot => {
+                slot.classList.add('spinning');
+            });
+            // Set random emojis during spinning
+            const spinInterval = setInterval(() => {
+                slotItems.forEach(item => {
+                    item.textContent = getRandomEmoji();
+                });
+            }, 100);
+            // Stop slots one by one
+            const finalEmojis = [];
+            setTimeout(() => {
+                // Stop first slot
+                slots[0].classList.remove('spinning');
+                finalEmojis.push(getRandomEmoji());
+                slotItems[0].textContent = finalEmojis[0];
+                setTimeout(() => {
+                    // Stop second slot
+                    slots[1].classList.remove('spinning');
+                    finalEmojis.push(getRandomEmoji());
+                    slotItems[1].textContent = finalEmojis[1];
+                    setTimeout(() => {
+                        // Stop third slot
+                        slots[2].classList.remove('spinning');
+                        finalEmojis.push(getRandomEmoji());
+                        slotItems[2].textContent = finalEmojis[2];
+                        // Clear interval
+                        clearInterval(spinInterval);
+                        // Show result
+                        showResult(finalEmojis);
+                        // Re-enable button
+                        spinButton.disabled = false;
+                        spinButton.classList.remove('opacity-50');
+                        spinButton.innerHTML = '<i class="ri-magic-line ri-lg mr-2"></i> 다시 뽑기';
+                    }, 500);
+                }, 500);
+            }, 1500);
+        }
+        // Show result
+        function showResult(emojis) {
+            // Clear previous result
+            emojiResult.innerHTML = '';
+            // Add emojis to result
+            emojis.forEach(emoji => {
+                const emojiSpan = document.createElement('span');
+                emojiSpan.textContent = emoji;
+                emojiSpan.classList.add('text-3xl');
+                emojiResult.appendChild(emojiSpan);
+            });
+            // Set fortune text
+            fortuneText.textContent = getRandomFortune(emojis);
+            // Show result area and share section
+            resultArea.classList.remove('hidden');
+            shareSection.classList.remove('hidden');
+            // Scroll to result
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+        // Spin button click event
+        spinButton.addEventListener('click', spinSlots);
+    });
+</script>
+</body>
+</html>
