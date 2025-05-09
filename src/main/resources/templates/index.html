@@ -91,32 +91,32 @@
             </div>
         </div>
         <!-- Previous Results -->
-        <div class="mb-8">
-            <h2 class="text-lg font-bold mb-4">이전 결과</h2>
-            <div class="space-y-4">
-                <div class="bg-white rounded-lg p-4 shadow border border-gray-100">
-                    <div class="flex justify-between items-center mb-2">
-                        <div class="text-xl">🍕 ⏰ ☁️</div>
-                        <span class="text-xs text-gray-500">5월 1일</span>
-                    </div>
-                    <p class="text-sm text-gray-700">먹을 걸 너무 고민하지 말고, 시간을 아끼세요. 오늘은 무난한 하루가 될 거예요.</p>
-                </div>
-                <div class="bg-white rounded-lg p-4 shadow border border-gray-100">
-                    <div class="flex justify-between items-center mb-2">
-                        <div class="text-xl">✨ ✈️ ❤️</div>
-                        <span class="text-xs text-gray-500">4월 30일</span>
-                    </div>
-                    <p class="text-sm text-gray-700">특별한 인연이나 소식이 예상되는 날! 새로운 것에 열어두세요.</p>
-                </div>
-                <div class="bg-white rounded-lg p-4 shadow border border-gray-100">
-                    <div class="flex justify-between items-center mb-2">
-                        <div class="text-xl">🌙 🎵 🏃</div>
-                        <span class="text-xs text-gray-500">4월 29일</span>
-                    </div>
-                    <p class="text-sm text-gray-700">밤에 음악을 들으며 가벼운 운동을 하면 영감이 떠오를 거예요.</p>
-                </div>
-            </div>
-        </div>
+<!--        <div class="mb-8">-->
+<!--            <h2 class="text-lg font-bold mb-4">이전 결과</h2>-->
+<!--            <div class="space-y-4">-->
+<!--                <div class="bg-white rounded-lg p-4 shadow border border-gray-100">-->
+<!--                    <div class="flex justify-between items-center mb-2">-->
+<!--                        <div class="text-xl">🍕 ⏰ ☁️</div>-->
+<!--                        <span class="text-xs text-gray-500">5월 1일</span>-->
+<!--                    </div>-->
+<!--                    <p class="text-sm text-gray-700">먹을 걸 너무 고민하지 말고, 시간을 아끼세요. 오늘은 무난한 하루가 될 거예요.</p>-->
+<!--                </div>-->
+<!--                <div class="bg-white rounded-lg p-4 shadow border border-gray-100">-->
+<!--                    <div class="flex justify-between items-center mb-2">-->
+<!--                        <div class="text-xl">✨ ✈️ ❤️</div>-->
+<!--                        <span class="text-xs text-gray-500">4월 30일</span>-->
+<!--                    </div>-->
+<!--                    <p class="text-sm text-gray-700">특별한 인연이나 소식이 예상되는 날! 새로운 것에 열어두세요.</p>-->
+<!--                </div>-->
+<!--                <div class="bg-white rounded-lg p-4 shadow border border-gray-100">-->
+<!--                    <div class="flex justify-between items-center mb-2">-->
+<!--                        <div class="text-xl">🌙 🎵 🏃</div>-->
+<!--                        <span class="text-xs text-gray-500">4월 29일</span>-->
+<!--                    </div>-->
+<!--                    <p class="text-sm text-gray-700">밤에 음악을 들으며 가벼운 운동을 하면 영감이 떠오를 거예요.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <!-- Share Section -->
         <div id="shareSection" class="hidden bg-white rounded-xl p-6 shadow-lg mb-8">
             <h2 class="text-lg font-bold mb-4 text-center">결과 공유하기</h2>
@@ -182,7 +182,8 @@
         const fortuneText = document.getElementById('fortuneText');
         const shareSection = document.getElementById('shareSection');
         const downloadBtn = document.getElementById('downloadBtn');
-        // All possible emojis
+
+        // Emojis for spin animation
         const emojis = [
             '😊', '😎', '🥰', '😇', '🤩', '🌟', '✨', '💫', '⭐', '🔥',
             '❤️', '💖', '💯', '🍀', '🌈', '🌞', '🌙', '☁️', '🌧️', '⛅',
@@ -190,53 +191,22 @@
             '📱', '💻', '⏰', '💰', '💸', '🎁', '🎉', '🎊', '🏆', '🥇',
             '🚗', '✈️', '🚀', '🏃', '🧘', '🛌', '👨‍💻', '👩‍💻', '📚', '✏️'
         ];
-        // Fortune messages based on emoji combinations
-        const fortunes = [
-            {
-                emojis: ['🍕', '⏰', '☁️'],
-                message: '먹을 걸 너무 고민하지 말고, 시간을 아끼세요. 오늘은 무난한 하루가 될 거예요.'
-            },
-            {
-                emojis: ['✨', '✈️', '❤️'],
-                message: '특별한 인연이나 소식이 예상되는 날! 새로운 것에 열어두세요.'
-            },
-            {
-                emojis: ['🌙', '🎵', '🏃'],
-                message: '밤에 음악을 들으며 가벼운 운동을 하면 영감이 떠오를 거예요.'
-            },
-            {
-                emojis: ['📚', '💻', '🍀'],
-                message: '학습이나 업무에 집중하면 행운이 따를 거예요. 새로운 지식을 얻을 좋은 날입니다.'
-            },
-            {
-                emojis: ['🌞', '🌈', '🎉'],
-                message: '긍정적인 에너지로 가득한 하루! 기쁜 소식이 기다리고 있어요.'
-            }
-        ];
+
+        // Spin button click event
+        spinButton.addEventListener('click', spinSlots);
+
         // Function to get random emoji
-        function getRandomEmoji() {
+        function getSpinEmoji() {
             return emojis[Math.floor(Math.random() * emojis.length)];
         }
-        // Function to get random fortune message
-        function getRandomFortune(emojiSet) {
-            // Try to find matching fortune first
-            for (const fortune of fortunes) {
-                if (fortune.emojis.every((emoji, index) => emoji === emojiSet[index])) {
-                    return fortune.message;
-                }
-            }
-            // If no match, generate a random message
-            const messages = [
-                `${emojiSet[0]}의 에너지와 ${emojiSet[1]}의 행운이 만나 ${emojiSet[2]}의 기회를 만들어낼 거예요.`,
-                `오늘은 ${emojiSet[0]}처럼 밝게 시작해서 ${emojiSet[1]}의 노력으로 ${emojiSet[2]}의 성과를 얻을 수 있어요.`,
-                `${emojiSet[0]}의 직관을 믿고 ${emojiSet[1]}의 도전을 두려워하지 마세요. ${emojiSet[2]}의 행운이 함께할 거예요.`,
-                `${emojiSet[0]}와 ${emojiSet[1]}에 집중하면 ${emojiSet[2]}의 기쁨을 느낄 수 있는 하루가 될 거예요.`,
-                `${emojiSet[0]}의 순간을 소중히 여기고 ${emojiSet[1]}의 기회를 놓치지 마세요. ${emojiSet[2]}의 행운이 따를 거예요.`
-            ];
-            return messages[Math.floor(Math.random() * messages.length)];
-        }
+
+        const spinIntervals = [];
+
         // Spin animation
-        function spinSlots() {
+        async function spinSlots() {
+            const stopDelays = [1300, 1900, 2500]; // delay times(ms) for each slot
+            const finalEmojis = [];
+
             // Disable button during spin
             spinButton.disabled = true;
             spinButton.classList.add('opacity-50');
@@ -248,41 +218,47 @@
             slots.forEach(slot => {
                 slot.classList.add('spinning');
             });
+
             // Set random emojis during spinning
-            const spinInterval = setInterval(() => {
-                slotItems.forEach(item => {
-                    item.textContent = getRandomEmoji();
-                });
-            }, 100);
-            // Stop slots one by one
-            const finalEmojis = [];
-            setTimeout(() => {
-                // Stop first slot
-                slots[0].classList.remove('spinning');
-                finalEmojis.push(getRandomEmoji());
-                slotItems[0].textContent = finalEmojis[0];
-                setTimeout(() => {
-                    // Stop second slot
-                    slots[1].classList.remove('spinning');
-                    finalEmojis.push(getRandomEmoji());
-                    slotItems[1].textContent = finalEmojis[1];
+            slotItems.forEach((item, index) => {
+                const interval = setInterval(() => {
+                    item.textContent = getSpinEmoji();
+                }, 100);
+                spinIntervals[index] = interval;
+            });
+
+            // Fetch emojis and fortune
+            const fortune = await fetchLuckyMoji();
+            console.log(fortune);
+
+            if (fortune?.success) {
+                finalEmojis.push(...fortune.emojis);
+                // Stop slots one by one
+                slotItems.forEach((item, index) => {
                     setTimeout(() => {
-                        // Stop third slot
-                        slots[2].classList.remove('spinning');
-                        finalEmojis.push(getRandomEmoji());
-                        slotItems[2].textContent = finalEmojis[2];
-                        // Clear interval
-                        clearInterval(spinInterval);
-                        // Show result
-                        showResult(finalEmojis);
-                        // Re-enable button
-                        spinButton.disabled = false;
-                        spinButton.classList.remove('opacity-50');
-                        spinButton.innerHTML = '<i class="ri-magic-line ri-lg mr-2"></i> 다시 뽑기';
-                    }, 500);
-                }, 500);
-            }, 1500);
+                        clearInterval(spinIntervals[index]);
+                        slots[index].classList.remove('spinning');
+                        item.textContent = finalEmojis[index];
+
+                        if (index === slotItems.length - 1) {
+                            showResult(finalEmojis);
+                        }
+                    }, stopDelays[index]);
+                });
+            } else {
+                slotItems.forEach((item, index) => {
+                    clearInterval(spinIntervals[index]);
+                    slots[index].classList.remove('spinning');
+                });
+                alert("운세를 가져오는 데 실패했어요 😥");
+            }
+
+            // Re-enable button
+            spinButton.disabled = false;
+            spinButton.classList.remove('opacity-50');
+            spinButton.innerHTML = '<i class="ri-magic-line ri-lg mr-2"></i> 다시 뽑기';
         }
+
         // Show result
         function showResult(emojis) {
             // Clear previous result
@@ -295,15 +271,36 @@
                 emojiResult.appendChild(emojiSpan);
             });
             // Set fortune text
-            fortuneText.textContent = getRandomFortune(emojis);
+            fortuneText.textContent = "준비중";
             // Show result area and share section
             resultArea.classList.remove('hidden');
             shareSection.classList.remove('hidden');
             // Scroll to result
-            resultArea.scrollIntoView({ behavior: 'smooth' });
+//            resultArea.scrollIntoView({ behavior: 'smooth' }); // TODO: 자동 스크롤 여부 결정 필요
         }
-        // Spin button click event
-        spinButton.addEventListener('click', spinSlots);
+
+        // Fetch emojis and fortune
+        async function fetchLuckyMoji() {
+            try {
+                const res = await fetch('/api/random-emojis');
+
+                if (!res.ok) {
+                    console.error(`HTTP Error: ${res.status}`);
+                    return { success: false };
+                }
+
+                const data = await res.json();
+
+                return {
+                    success: true,
+                    emojis: data.emojis/*,
+                    fortune: data.fortune*/
+                };
+            } catch (err) {
+                console.error(err);
+                return { success: false };
+            }
+        }
     });
 </script>
 </body>
