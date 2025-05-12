@@ -241,7 +241,8 @@
                         item.textContent = finalEmojis[index];
 
                         if (index === slotItems.length - 1) {
-                            showResult(finalEmojis);
+                            const fortuneText = fortune.fortune ?? "운세를 가져오는 데 실패했어요 😥";
+                            showResult(finalEmojis, fortuneText);
                         }
                     }, stopDelays[index]);
                 });
@@ -260,7 +261,7 @@
         }
 
         // Show result
-        function showResult(emojis) {
+        function showResult(emojis, fortune) {
             // Clear previous result
             emojiResult.innerHTML = '';
             // Add emojis to result
@@ -271,7 +272,7 @@
                 emojiResult.appendChild(emojiSpan);
             });
             // Set fortune text
-            fortuneText.textContent = "준비중";
+            fortuneText.textContent = fortune;
             // Show result area and share section
             resultArea.classList.remove('hidden');
             shareSection.classList.remove('hidden');
@@ -293,8 +294,8 @@
 
                 return {
                     success: true,
-                    emojis: data.emojis/*,
-                    fortune: data.fortune*/
+                    emojis: data.emojis,
+                    fortune: data.fortune
                 };
             } catch (err) {
                 console.error(err);
