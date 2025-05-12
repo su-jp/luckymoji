@@ -1,6 +1,7 @@
 package com.luckymoji.controller;
 
 import com.luckymoji.service.EmojiService;
+import com.luckymoji.service.FortuneHistoryService;
 import com.luckymoji.service.OpenAIService;
 import com.luckymoji.util.PromptBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +15,12 @@ public class EmojiController {
 
     private final EmojiService emojiService;
     private final OpenAIService openAIService;
+    private final FortuneHistoryService fortuneHistoryService;
 
-    public EmojiController(EmojiService emojiService, OpenAIService openAIService) {
+    public EmojiController(EmojiService emojiService, OpenAIService openAIService, FortuneHistoryService fortuneHistoryService) {
         this.emojiService = emojiService;
         this.openAIService = openAIService;
+        this.fortuneHistoryService = fortuneHistoryService;
     }
 
     @GetMapping("/api/random-emojis")
@@ -27,6 +30,9 @@ public class EmojiController {
                 PromptBuilder.getSystemPrompt(),
                 PromptBuilder.buildUserPrompt(randomEmojis)
         );
+
+        // 운세 저장
+        fortuneHistoryService.save(String.join("", randomEmojis), fortune);
 
         return Map.of(
                 "emojis", randomEmojis,
