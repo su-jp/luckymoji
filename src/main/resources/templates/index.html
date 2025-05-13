@@ -54,7 +54,7 @@
         <div class="mt-6 mb-8 text-center">
             <h1 class="text-2xl font-bold mb-2">오늘의 운세 머신 🎰</h1>
             <p class="text-gray-600 text-sm">버튼을 눌러 오늘의 운세를 확인해보세요!</p>
-            <p class="text-gray-500 text-xs mt-1">2025년 5월 2일 금요일</p>
+            <p class="text-gray-500 text-xs mt-1" id="todayDate"></p>
         </div>
         <!-- Slot Machine -->
         <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
@@ -182,6 +182,17 @@
         const fortuneText = document.getElementById('fortuneText');
         const shareSection = document.getElementById('shareSection');
         const downloadBtn = document.getElementById('downloadBtn');
+        const dateElement = document.getElementById('todayDate');
+
+        // Set today's date
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const date = today.getDate();
+        const dayNames = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        const day = dayNames[today.getDay()];
+        const formattedDate = `${year}년 ${month}월 ${date}일 ${day}`;
+        dateElement.textContent = formattedDate;
 
         // Emojis for spin animation
         const emojis = [
