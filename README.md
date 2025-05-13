@@ -18,7 +18,7 @@ OpenAI ChatGPT를 통해 이 이모지를 해석한 **오늘의 운세 한 문�
 
 | 영역 | 기술 |
 |------|------|
-| Backend | Java 21, Spring Boot, Gradle, WebClient |
+| Backend | Java 17, Spring Boot, Gradle, WebClient |
 | Frontend | HTML, CSS, JavaScript |
 | API | OpenAI GPT (gpt-4o-mini) |
 | 기타 | IntelliJ, GitHub |
